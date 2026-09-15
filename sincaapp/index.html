@@ -659,10 +659,11 @@ async function sendNtfy(title, message, priority, tags){
   try{
     const sub = await getPartnerSubscription();
     if(!sub) return false;
+    const pushTitle = `${getDisplayName()} 🐿️`;
     const res = await fetch('/.netlify/functions/send-push', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subscription: sub, title: title || 'Sincap', body: message, icon: 'icon-180.png', tag: (tags && tags[0]) || 'sincap' })
+      body: JSON.stringify({ subscription: sub, title: pushTitle, body: message, icon: 'icon-180.png', tag: (tags && tags[0]) || 'sincap' })
     });
     return res.ok;
   }catch(e){
